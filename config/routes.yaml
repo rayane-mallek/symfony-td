@@ -1,0 +1,6 @@
+controllers:
+    resource: ../src/Controller/
+    type: annotation
+bands_list:
+    path: /band
+    controller: App\Controller\BandController::list

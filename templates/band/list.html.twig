@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div>
+    <h1>Bands' list</h1>
+    <div class="row">
+        {% for band in bands %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{ asset('images/' ~ band.getPicture().getName()) }}" class="card-img-top" alt="{{ band.getName() }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ band.getName() }}</h5>
+                    <p class="card-text">{{ band.getDescription() }}</p>
+                    <a href="./{{ band.getId() }}" class="btn btn-primary">Voir</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

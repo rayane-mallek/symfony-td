@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div>
+		<h1>Concerts' list</h1>
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Groupe</th>
+						<th scope="col">Hall</th>
+						<th scope="col">Date</th>
+						{% if is_granted("ROLE_ADMIN") %}
+                        	<th scope="col">Actions</th>
+						{% endif %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for concert in concerts %}
+						<tr>
+							<th scope="row">{% for band in concert.getBands() %} {{ band.getName() }} {% endfor %}</th>
+							<td>{{ concert.getHall().getName() }}</td>
+							<td>{{ concert.getDate().format('Y-m-d H:i:s') }}</td>
+							<td>
+							{% if is_granted("ROLE_ADMIN") %}
+								<a href="{{ path('app_concert_delete', {id: concert.getId()}) }}" class="btn btn-danger">Supprimer</a>
+								<a href="{{ path('app_concert_update', {id: concert.getId()}) }}" class="btn btn-primary">Modifier</a>
+							{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+        <div>
+			{% if is_granted("ROLE_ADMIN") %}
+            	<a href="{{ path('app_concert_create') }}" class="btn btn-primary">Créer un concert</a>
+			{% endif %}
+        </div>
+	</div>
+{% endblock body %}
