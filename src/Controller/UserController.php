@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Route('/user/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, UserRepository $userRepository): Response
     {
         $user = $this->getUser();
