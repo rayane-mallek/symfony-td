@@ -80,7 +80,6 @@ class UserController extends AbstractController
     }
 
     #[Route('/favorites', name: 'app_user_favorites')]
-    #[ParamConverter("user", options: ["mapping" => ["user" => "id"]])]
     public function favorites(User $user): Response
     {
         return $this->render('user/favorites.html.twig', [
