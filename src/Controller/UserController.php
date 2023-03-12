@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,10 +80,9 @@ class UserController extends AbstractController
     }
 
     #[Route('/favorites', name: 'app_user_favorites')]
-    public function favorites(): Response
+    #[ParamConverter("user", options: ["mapping" => ["user" => "id"]])]
+    public function favorites(User $user): Response
     {
-        $user = $this->getUser();
-
         if (!$user) {
             throw $this->createNotFoundException('User not found');
         }
