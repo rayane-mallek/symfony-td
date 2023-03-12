@@ -23,7 +23,7 @@ class ConcertFixtures extends Fixture implements DependentFixtureInterface
 
         $concert = new Concert();
         $concert
-            ->setDate(new \DateTime())
+            ->setDate(new \DateTime('next month'))
             ->setHall($hall2)
             ->addBand($band)
         ;
@@ -31,11 +31,27 @@ class ConcertFixtures extends Fixture implements DependentFixtureInterface
 
         $concert2 = new Concert();
         $concert2
-            ->setDate(new \DateTime())
+            ->setDate(new \DateTime('next month'))
             ->setHall($hall)
             ->addBand($band2)
         ;
         $manager->persist($concert2);
+
+        $concert3 = new Concert();
+        $concert3
+            ->setDate(new \DateTime('last month'))
+            ->setHall($hall2)
+            ->addBand($band)
+        ;
+        $manager->persist($concert3);
+
+        $concert4 = new Concert();
+        $concert4
+            ->setDate(new \DateTime('last month'))
+            ->setHall($hall)
+            ->addBand($band2)
+        ;
+        $manager->persist($concert4);
 
         $manager->flush();
 
