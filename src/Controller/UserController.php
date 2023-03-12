@@ -25,6 +25,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            var_dump($user->getPassword());exit;
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_homepage', [], Response::HTTP_SEE_OTHER);
