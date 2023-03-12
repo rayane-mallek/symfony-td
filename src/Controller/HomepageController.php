@@ -17,7 +17,8 @@ class HomepageController extends AbstractController
         $concerts = $concertRepository->findAll();
 
         return $this->render('index.html.twig', [
-            'concerts' => $concerts
+            'concerts' => $concerts,
+            'paginate' => true,
         ]);
     }
 }
