@@ -10,6 +10,10 @@
                     <h5 class="card-title">{{ band.getName() }}</h5>
                     <p class="card-text">{{ band.getDescription() }}</p>
                     <a href="./{{ band.getId() }}" class="btn btn-primary">Voir</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ path('app_band_delete', {id: band.getId()}) }}" class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('app_band_update', {id: band.getId()}) }}" class="btn btn-primary">Modifier</a>
+                    {% endif %}
                 </div>
                 {% if app.user %}
                     {% if app.user.bands.contains(band) %}
@@ -20,6 +24,9 @@
                 {% endif %}
             </div>
         {% endfor %}
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('app_band_create') }}" class="btn btn-primary">Créer un groupe</a>
+        {% endif %}
     </div>
 </div>
 {% endblock body %}

@@ -50,7 +50,7 @@ class BandController extends AbstractController
         return $this->redirectToRoute('app_band_list');
     }
 
-    #[Route('/admin/create/band', name: 'create_band')]
+    #[Route('/admin/create/band', name: 'create')]
     public function createBand(Request $request, ManagerRegistry $doctrine)
     {
         $band = new Band();
@@ -73,7 +73,7 @@ class BandController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/update/band/{id}', name: 'update_band')]
+    #[Route('/admin/update/band/{id}', name: 'update')]
     public function updateBand(Request $request, ManagerRegistry $doctrine, Band $band)
     {
         $bandRepository = $doctrine->getRepository(Band::class);
