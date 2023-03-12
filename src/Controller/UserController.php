@@ -83,10 +83,6 @@ class UserController extends AbstractController
     #[ParamConverter("user", options: ["mapping" => ["user" => "id"]])]
     public function favorites(User $user): Response
     {
-        if (!$user) {
-            throw $this->createNotFoundException('User not found');
-        }
-
         return $this->render('user/favorites.html.twig', [
             'bands' => $user->getBands(),
         ]);
