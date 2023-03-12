@@ -29,7 +29,7 @@
                         Bonjour {{ app.user.name ~ ' ' ~ app.user.lastname }} !
                     </div>
                 {% else %}
-                    {{ render(controller('App\\Controller\\SecurityController::login')) }}
+                    {% include 'security/form.html.twig' %}
                 {% endif %}
             </div>
         </div>
