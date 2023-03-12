@@ -16,7 +16,7 @@
                                     <h5 class="card-title">{{ concert.getBands()[0].getName() }}</h5>
                                     <p class="card-text">{{ concert.getDate()|date('Y-m-d H:i') }}</p>
                                     <p class="card-text">{{ concert.getHall().getName() }}</p>
-                                    <a href="{{ path('concert_show', {'id': concert.getId()}) }}" class="btn btn-primary">Plus d'infos</a>
+                                    <a href="{{ path('app_concert_concert', {'id': concert.getId()}) }}" class="btn btn-primary">Plus d'infos</a>
                                 </div>
                             </div>
                         </div>
