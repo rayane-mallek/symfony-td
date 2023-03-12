@@ -52,6 +52,18 @@ class ConcertRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findFutureConcerts()
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->innerJoin('c.bands', 'b')
+            ->where($qb->expr()->andX(
+                $qb->expr()->gte('c.date', $qb->expr()->literal((new \DateTime())->format('Y-m-d H:i:s')))
+            ));
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findFutureConcertsByBand(Band $band)
     {
         $qb = $this->createQueryBuilder('c');

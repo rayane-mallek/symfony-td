@@ -32,7 +32,7 @@ class BandController extends AbstractController
         $band = $bandRepository->find($id);
 
         $concertRepository = $doctrine->getRepository(Concert::class);
-        $concerts = $concertRepository;
+        $concerts = $concertRepository->findFutureConcertsByBand($band);
 
 
         return $this->render('band/band.html.twig', [

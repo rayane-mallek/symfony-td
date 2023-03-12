@@ -18,7 +18,7 @@ class ConcertController extends AbstractController
     public function indexAll(ManagerRegistry $doctrine)
     {
         $concertRepository = $doctrine->getRepository(Concert::class);
-        $concerts = $concertRepository->findAll();
+        $concerts = $concertRepository->findFutureConcerts();
 
         return $this->render('concert/list.html.twig', [
             'concerts' => $concerts
