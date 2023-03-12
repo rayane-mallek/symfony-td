@@ -11,6 +11,13 @@
                     <p class="card-text">{{ band.getDescription() }}</p>
                     <a href="./{{ band.getId() }}" class="btn btn-primary">Voir</a>
                 </div>
+                {% if app.user %}
+                    {% if app.user.bands.contains(band) %}
+                        <a href="{{ path('favorite_toggle', {'id': band.id}) }}">Remove from favorites</a>
+                    {% else %}
+                        <a href="{{ path('favorite_toggle', {'id': band.id}) }}">Add to favorites</a>
+                    {% endif %}
+                {% endif %}
             </div>
         {% endfor %}
     </div>

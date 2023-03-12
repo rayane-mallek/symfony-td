@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Band;
 use App\Entity\Concert;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,6 +48,19 @@ class ConcertRepository extends ServiceEntityRepository
                 $qb->expr()->lte('c.date', $qb->expr()->literal((new \DateTime())->format('Y-m-d H:i:s'))),
             ))
         ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findFutureConcertsByBand(Band $band)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->innerJoin('c.bands', 'b')
+            ->where($qb->expr()->andX(
+                $qb->expr()->gte('c.date', $qb->expr()->literal((new \DateTime())->format('Y-m-d H:i:s'))),
+                $qb->expr()->eq('b.id', $band->getId())
+            ));
 
         return $qb->getQuery()->getResult();
     }
