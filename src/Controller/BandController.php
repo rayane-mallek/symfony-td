@@ -6,6 +6,7 @@ use App\Entity\Band;
 use App\Entity\Concert;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/band', name: 'app_band_')]
@@ -37,4 +38,58 @@ class BandController extends AbstractController
             'concerts' => $concerts,
         ]);
     }
+
+    #[Route('/admin/delete/band/{id}', name: 'delete')]
+    public function deleteBand(ManagerRegistry $doctrine, Band $band)
+    {
+        $entityManager = $doctrine->getManager();
+
+        $entityManager->remove($band);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_band_list');
+    }
+
+    #[Route('/admin/create/band', name: 'create_band')]
+    public function createBand(Request $request, ManagerRegistry $doctrine)
+    {
+        $band = new Band();
+
+        $form = $this->createForm(BandType::class, $band);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $band = $form->getData();
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($band);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_band_list');
+        }
+
+        return $this->render('band/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/admin/update/band/{id}', name: 'update_band')]
+    public function updateBand(Request $request, ManagerRegistry $doctrine, Band $band)
+    {
+        $bandRepository = $doctrine->getRepository(Band::class);
+
+        $form = $this->createForm(BandType::class, $band);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $bandRepository->save($band, true);
+
+            return $this->redirectToRoute('app_band_list', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('band/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 }
