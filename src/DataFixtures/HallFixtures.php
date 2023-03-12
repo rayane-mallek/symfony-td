@@ -15,11 +15,11 @@ class HallFixtures extends Fixture implements DependentFixtureInterface
     public const HALL_3 = 'hall-3';
 
     public function load(ObjectManager $manager): void
-    {   
-        $picture = $this->getReference(PictureFixtures::PICTURE_1);
-        
+    {
+        $picture = $this->getReference(PictureFixtures::PICTURE_HALL);
+
         $hall = new Hall();
-        $hall 
+        $hall
             ->setName('Salle 1')
             ->setCapacity(100)
             ->setPicture($picture)
@@ -27,7 +27,7 @@ class HallFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($hall);
 
         $hall2 = new Hall();
-        $hall2 
+        $hall2
             ->setName('Salle 2')
             ->setCapacity(1000)
             ->setPicture($picture)
@@ -35,7 +35,7 @@ class HallFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($hall2);
 
         $hall3 = new Hall();
-        $hall3 
+        $hall3
             ->setName('Salle 3')
             ->setCapacity(10000)
             ->setPicture($picture)

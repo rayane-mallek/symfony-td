@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\Band;
 
 class BandFixtures extends Fixture implements DependentFixtureInterface
-{   
+{
     public const BAND_1 = 'band-1';
     public const BAND_2 = 'band-2';
 
@@ -16,11 +16,11 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
     {
         $picture = $this->getReference(PictureFixtures::PICTURE_1);
         $picture2 = $this->getReference(PictureFixtures::PICTURE_2);
-        
+
         $band = new Band();
         $band
             ->setName('Blackpink')
-            ->setDescription('Best kpop group')
+            ->setDescription('A K-Pop girl group composed of Rosé - Jennie - Jisoo - Lisa')
             ->setPicture($picture)
         ;
         $manager->persist($band);
@@ -28,7 +28,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
         $band2 = new Band();
         $band2
             ->setName('Dreamcatcher')
-            ->setDescription('Best kpop group')
+            ->setDescription('A K-Pop girl group composed of Siyeon - SuA - JiU - Dami - Gahyeon - Yoohyeon - Handong')
             ->setPicture($picture2)
         ;
         $manager->persist($band2);
