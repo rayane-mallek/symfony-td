@@ -18,19 +18,7 @@ class UserType extends AbstractType
             ->add('email')
             ->add('name')
             ->add('lastname')
-            ->add('roles')
             ->add('password')
-            ->add('hall', EntityType::class, [
-                'class'        => Picture::class,
-                'choice_label' => 'name',
-            ])
-            ->add('bands', EntityType::class, [
-                'class'        => Band::class,
-                'choice_label' => 'name',
-                'multiple'     => true,
-                'expanded'     => true,
-                
-            ])
         ;
     }
 

@@ -16,14 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
     #[Route('/user/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, UserRepository $userRepository): Response
     {
@@ -43,15 +35,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user, true);
-        }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-    }
 
     #[Route('/favorites', name: 'app_user_favorites')]
     public function favorites(): Response
@@ -63,26 +47,5 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/favorite/{id}', name: 'app_user_favorite_toggle')]
-    public function toggleFavorite(Band $band, ManagerRegistry $doctrine): Response
-    {
-        $user = $this->getUser();
-
-        if (!$user) {
-            throw $this->createNotFoundException('User not found');
-        }
-
-        if ($user->getBands()->contains($band)) {
-            $user->removeBand($band);
-        } else {
-            $user->addBand($band);
-        }
-
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_band_list');
-    }
 
 }
