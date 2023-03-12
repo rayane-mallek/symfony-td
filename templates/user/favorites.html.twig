@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes favoris{% endblock %}
+
+{% block body %}
+    <h1>Mes favoris</h1>
+
+    {% if app.user %}
+        {% if app.user.bands|length > 0 %}
+            <ul>
+                {% for band in app.user.bands %}
+                    <li>{{ band.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun favori pour le moment.</p>
+        {% endif %}
+    {% else %}
+        <p>Veuillez vous connecter pour accéder à vos favoris.</p>
+    {% endif %}
+{% endblock %}

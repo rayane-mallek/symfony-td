@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ asset('images/' ~ concert.getHall().getImage()) }}" class="img-fluid rounded-start" alt="{{ concert.getHall().getName() }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ concert.getHall().getName() }}</h2>
+                        <h4 class="card-subtitle mb-2 text-muted">{{ concert.getDate()|date('d/m/Y H:i') }}</h4>
+                        <p class="card-text">Bands:</p>
+                        <ul>
+                            {% for band in concert.getBands() %}
+                                <li>{{ band.getName() }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

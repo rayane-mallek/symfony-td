@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <h1>Concerts' list</h1>
+        {% set currentYear = '' %}
+        {% for concert in concerts %}
+            {% if currentYear != concert.getDate().format('Y') %}
+                {% set currentYear = concert.getDate().format('Y') %}
+                <h2>{{ currentYear }}</h2>
+            {% endif %}
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Groupe</th>
+                            <th scope="col">Hall</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                {% for band in concert.getBands() %}
+                                    {{ band.getName() }}
+                                    {% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </th>
+                            <td>{{ concert.getHall().getName() }}</td>
+                            <td>{{ concert.getDate().format('Y-m-d H:i:s') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock body %}
