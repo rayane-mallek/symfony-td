@@ -27,7 +27,7 @@
             <div class="col-md-4">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="alert alert-info mb-3">
-                        Bonjour {{ app.user.username }} !
+                        Bonjour {{ app.user.name app.user.lastname }} !
                     </div>
                 {% else %}
                     <div class="card">
