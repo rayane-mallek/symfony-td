@@ -1,22 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create Band{% endblock %}
-
 {% block body %}
-    <h1>Create Band</h1>
+    {% form_theme form 'bootstrap_5_layout.html.twig' %}
+
     {{ form_start(form) }}
-    <div class="mb-3">
-        {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
-        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
-        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_label(form.pictureUrl, 'Picture URL', {'label_attr': {'class': 'form-label'}}) }}
-        {{ form_widget(form.pictureUrl, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <button class="btn btn-primary">Create</button>
-    {{ form_end(form) }}
-{% endblock %}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+{% endblock body %}
