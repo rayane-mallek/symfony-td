@@ -9,11 +9,11 @@
                     <div class="card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="{{ asset('images/' ~ concert.getHall().getPicture().getName()) }}" class="img-fluid rounded-start" alt="{{ concert.getHall().getName() }}">
+                                <img src="{{ asset('images/' ~ concert.getBands()[0].getPicture().getName()) }}" class="img-fluid rounded-start" alt="{{ concert.getBands()[0].getName() }}">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ concert.getHall().getName() }}</h5>
+                                    <h5 class="card-title">{{ concert.getBands()[0].getName() }}</h5>
                                     <p class="card-text">{{ concert.getDate()|date('Y-m-d H:i') }}</p>
                                     <p class="card-text">{{ concert.getHall().getName() }}</p>
                                     <a href="{{ path('app_concert_concert', {'id': concert.getId()}) }}" class="btn btn-primary">Plus d'infos</a>
@@ -32,8 +32,24 @@
                 {% else %}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Login</h5>
-                            {{ include('user/_form.html.twig') }}
+                            <h5 class="card-title">Connexion</h5>
+                            <form method="post" action="{{ path('app_login') }}">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                                    <input type="text" class="form-control" id="username" name="_username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Mot de passe</label>
+                                    <input type="password" class="form-control" id="password" name="_password" required>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me">
+                                    <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Se connecter</button>
+                            </form>
                         </div>
                     </div>
                 {% endif %}
