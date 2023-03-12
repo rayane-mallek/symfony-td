@@ -37,5 +37,6 @@ class PictureFixtures extends Fixture
 
         $this->addReference(self::PICTURE_1, $picture);
         $this->addReference(self::PICTURE_2, $picture2);
+        $this->addReference(self::PICTURE_HALL, $pictureHall);
     }
 }
