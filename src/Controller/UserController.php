@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/user')]
 class UserController extends AbstractController
 {
+
     #[Route('/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, UserRepository $userRepository): Response
     {
@@ -26,7 +27,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->save($user, true);
 
-            return $this->redirectToRoute('app_concert_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/edit.html.twig', [
@@ -34,8 +35,6 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
 
     #[Route('/favorites', name: 'app_user_favorites')]
     public function favorites(): Response
@@ -47,5 +46,26 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/favorite/{id}', name: 'app_user_favorite_toggle')]
+    public function toggleFavorite(Band $band, ManagerRegistry $doctrine): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        if ($user->getBands()->contains($band)) {
+            $user->removeBand($band);
+        } else {
+            $user->addBand($band);
+        }
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_band_list');
+    }
 
 }
