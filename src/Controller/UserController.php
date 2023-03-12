@@ -92,7 +92,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/favorite/{id}', name: 'favorite_toggle')]
+    #[Route('/favorite/{id}', name: 'app_user_favorite_toggle')]
     public function toggleFavorite(Band $band, ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
