@@ -16,10 +16,9 @@ class BandType extends AbstractType
         $builder
             ->add('name')
             ->add('description', TextType::class)
-            ->add('picture', TextType::class, [
-                'constraints' => [
-                    new Url(),
-                ],
+            ->add('picture', EntityType::class, [
+                'class' => Picture::class,
+                'choice_label' => 'name',
             ])
         ;
     }

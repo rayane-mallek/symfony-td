@@ -41,7 +41,7 @@ class BandController extends AbstractController
     }
 
     #[Route('/admin/delete/band/{id}', name: 'delete')]
-    public function deleteBand(ManagerRegistry $doctrine, Band $band)
+    public function delete(ManagerRegistry $doctrine, Band $band)
     {
         $entityManager = $doctrine->getManager();
 
@@ -52,7 +52,7 @@ class BandController extends AbstractController
     }
 
     #[Route('/admin/create/band', name: 'create')]
-    public function createBand(Request $request, ManagerRegistry $doctrine)
+    public function create(Request $request, ManagerRegistry $doctrine)
     {
         $band = new Band();
 
@@ -75,7 +75,7 @@ class BandController extends AbstractController
     }
 
     #[Route('/admin/update/band/{id}', name: 'update')]
-    public function updateBand(Request $request, ManagerRegistry $doctrine, Band $band)
+    public function update(Request $request, ManagerRegistry $doctrine, Band $band)
     {
         $bandRepository = $doctrine->getRepository(Band::class);
 
